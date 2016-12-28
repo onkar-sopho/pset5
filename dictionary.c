@@ -181,6 +181,8 @@ unsigned int size(void)
  */
 bool unload(void)
 {
-    // TODO
-    return false;
+    trie* currentnode = firstnode;
+    freenode(currentnode);
+    return true;
+
 }
