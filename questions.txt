@@ -1,0 +1,38 @@
+0.  What is pneumonoultramicroscopicsilicovolcanoconiosis?
+=>  It is the longest word in the English language published in a dictionary, the Oxford English Dictionary, which defines it as "an artificial long word said to mean a lung disease caused by inhaling very fine ash and sand dust."
+    otherwise known as silicosis. Apparently it is the 95138th word in our large dictionary.
+
+1.  According to its man page, what does getrusage do?
+=>  getrusage() returns resource usage measures for the calling process itself, the children of the calling process, or the calling thread.
+
+2.  Per that same man page, how many members are in a variable of type struct rusage?
+=>  The struct has 16 members.
+
+3.  Why do you think we pass before and after by reference (instead of by value) to calculate, even though we’re not changing their contents?
+=>  One benefit is that we don't have to create new variables, so it saves memory and time. Also by passing by reference, it always ensures that the latest up to date values of before and
+    after are used, unlike if we pass by value, a copy will be created an it won't reflect those changes back to the original variables.
+
+4.  Explain as precisely as possible, in a paragraph or more, how main goes about reading words from a file. In other words, convince us that you indeed understand how that function’s for loop works.
+=>  speller.c reads the words from the file one character at a time using the fgetc()
+    function. Using this fuction we can have a control over each character of the word, and 
+    hence ignore a particular word, if it does not suit our requirements as per the pset.
+    The for loop begins reading the first character of the file,and checks the first condition if it is a letter or apostrophe,
+    then it is goes inside loop and is added to word provided its length is not more than the specified max value.
+    Then it checks the next condition, if there is a digit then also the word is ignored.
+
+5.  Why do you think we used fgetc to read each word’s characters one at a time rather than use fscanf with a format string like "%s" to read whole words at a time? Put another way, what problems might arise by relying on fscanf alone?
+=>  Because if we use fsacnf it will create porblems if there is an alphanumeric character or special symbols like apostrophe, thus to remove 
+    this problem we are using fgetc, to reach one character at a time and thus filter the characters as per our need.  
+
+6.  Why do you think we declared the parameters for check and load as const?
+=>  The parameters passed to load and check are declared using const because they are not allowed to change.
+    Declaring "const char*" creates a pointer to a char. By using const char*, if you accidentally try to change
+    the value it points to, the compiler would give a warning. Since the words from the text and the dictionary are not supposed to be manipulated in this solution, it is safer to declare a const.
+
+7.  TODO
+
+8.  TODO
+
+9.  TODO
+
+10. TODO
