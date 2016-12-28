@@ -172,8 +172,7 @@ bool load(const char* dictionary)
  */
 unsigned int size(void)
 {
-    // TODO
-    return 0;
+    return words_counter;
 }
 
 
