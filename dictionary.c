@@ -49,8 +49,52 @@ int words_counter = 0;
  */
 bool check(const char* word)
 {
-    // TODO
-    return false;
+    // letter as int
+    int a_int = (int)'a';
+    int z_int = (int)'z';
+    
+    // set current node to first node
+    trie* currentnode = firstnode;
+    
+    // looping through each letter in word
+    int i = 0;
+    while(word[i] != '\0')
+    {
+        char ch = word[i];
+        
+        
+        // find if ch is apostrophe
+        if (word[i] == '\'')
+        {
+            ch = z_int + 1;
+        }
+        
+        // converting letter between 0 and 25
+        int childIndex = tolower(ch) - a_int;
+        
+        if (currentnode -> children[childIndex] != NULL)
+        {
+            currentnode = currentnode -> children[childIndex];
+            i++;
+        }
+        
+        else
+        {
+            return false;
+        }
+        
+    }
+    
+    
+    if (currentnode -> is_word == true)
+    {
+        return true;
+    }
+    
+    else
+    {
+        return false;
+    }
 }
 
 
