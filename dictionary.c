@@ -59,8 +59,67 @@ bool check(const char* word)
  */
 bool load(const char* dictionary)
 {
-    // TODO
-    return false; 
+   // integer mapping for a and z
+   int a_int = (int)'a';
+   int z_int = (int)'z';
+   
+   // opening the dictionary file
+   FILE* fp = fopen(dictionary,"r");
+   
+   // sanity check for null returned reference
+   if (fp == NULL)
+   {
+    return false;
+   }
+   
+   // mallocking memory for first node
+   firstnode = (trie*) malloc(sizeof(trie));
+   
+   // integer for current position in children array
+   int character = 0;
+   
+   // cursor node
+   trie* currentnode = NULL;
+   
+   // looping through dictionary until end of file is encountered
+   while(EOF != (character = fgetc(fp)))
+   {
+   		// setting current node to first node
+   		currentnode = firstnode;
+   		
+   		// iterating through character and adding each 
+   		// letter to children until "\n"
+   		for(; character != '\n'; character = fgetc(fp))
+   		{
+   			// if apostrophe then store in 
+   			if (character == '\'')
+   			{
+   				character = z_int + 1;
+   			}
+   			
+   			// if the character is not in trie...create one
+   			if (currentnode -> children[character - a_int] == NULL)
+   			{
+   				// malloc a new node
+   				currentnode -> children[character - a_int] = (trie*)malloc(sizeof(trie));
+   				currentnode = currentnode -> children[character - a_int];
+   			}
+   			
+   			// go to address in children
+   			else
+   			{
+   				currentnode = currentnode -> children[character - a_int];
+   			}
+   			
+   		}
+   		currentnode -> is_word = true;
+   		words_counter++;
+   }
+   
+   // close the dictionary file
+   fclose(fp);
+   return true;
+   
 }
 
 
