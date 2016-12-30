@@ -29,10 +29,16 @@
     Declaring "const char*" creates a pointer to a char. By using const char*, if you accidentally try to change
     the value it points to, the compiler would give a warning. Since the words from the text and the dictionary are not supposed to be manipulated in this solution, it is safer to declare a const.
 
-7.  TODO
+7.  What data structure(s) did you use to implement your spell-checker? Be sure not to leave your answer at just "hash table," "trie," or the like. Expound on what’s inside each of your "nodes."
+=>  I used a trie to create a structure with 27 child nodes, one for each lowercase letter from a to z, and one for the apostrophes.
 
-8.  TODO
+8.  How slow was your code the first time you got it working correctly?
+=>  Once I got my implementation to compile and run, the speed has only marginally improved with the various changes I’ve made. It has improved by 0.04 seconds.
 
-9.  TODO
+9.  What kinds of changes, if any, did you make to your code in order to improve its performance?
+=>  I started with the idea to implement a hash table, but was having too many problems. 
+    After reading more about trie structures and going through the videos, I implemented the trie for this solution.
 
-10. TODO
+10. Do you feel that your code has any bottlenecks that you were not able to chip away at?
+=>  I think the code is about as good as I’m able to make it without any major changes. Although it does not match with the staff's solution timings, but still 
+    I think it does a decent job. However I do agree that there is some scope for improvement in my code.

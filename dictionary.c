@@ -31,9 +31,9 @@ void freenode(trie* firstnode)
 {
     for(int i = 0; i < 27; i++)
     {
-        if (firstnode -> children[i] != NULL)
+        if (firstnode->children[i] != NULL)
         {
-            freenode(firstnode -> children[i]);
+            freenode(firstnode->children[i]);
         }
     }
     free(firstnode);
@@ -50,8 +50,8 @@ int words_counter = 0;
 bool check(const char* word)
 {
     // letter as int
-    int a_int = (int)'a';
-    int z_int = (int)'z';
+    int a_int = (int) 'a';
+    int z_int = (int) 'z';
     
     // set current node to first node
     trie* currentnode = firstnode;
@@ -72,9 +72,9 @@ bool check(const char* word)
         // converting letter between 0 and 25
         int childIndex = tolower(ch) - a_int;
         
-        if (currentnode -> children[childIndex] != NULL)
+        if (currentnode->children[childIndex] != NULL)
         {
-            currentnode = currentnode -> children[childIndex];
+            currentnode = currentnode->children[childIndex];
             i++;
         }
         
@@ -86,7 +86,7 @@ bool check(const char* word)
     }
     
     
-    if (currentnode -> is_word == true)
+    if (currentnode->is_word == true)
     {
         return true;
     }
@@ -103,66 +103,63 @@ bool check(const char* word)
  */
 bool load(const char* dictionary)
 {
-   // integer mapping for a and z
-   int a_int = (int)'a';
-   int z_int = (int)'z';
+    // integer mapping for a and z
+    int a_int = (int) 'a';
+    int z_int = (int) 'z';
    
-   // opening the dictionary file
-   FILE* fp = fopen(dictionary,"r");
+    // opening the dictionary file
+    FILE* fp = fopen(dictionary,"r");
    
-   // sanity check for null returned reference
-   if (fp == NULL)
-   {
-    return false;
-   }
+    // sanity check for null returned reference
+    if (fp == NULL)
+    {
+        return false;
+    }
    
-   // mallocking memory for first node
-   firstnode = (trie*) malloc(sizeof(trie));
+    // mallocking memory for first node
+    firstnode = (trie*) malloc(sizeof(trie));
    
-   // integer for current position in children array
-   int character = 0;
+    // integer for current position in children array
+    int character = 0;
    
-   // cursor node
-   trie* currentnode = NULL;
+    // cursor node
+    trie* currentnode = NULL;
    
-   // looping through dictionary until end of file is encountered
-   while(EOF != (character = fgetc(fp)))
-   {
-   		// setting current node to first node
-   		currentnode = firstnode;
+    // looping through dictionary until end of file is encountered
+    while(EOF != (character = fgetc(fp)))
+    {
+        currentnode = firstnode;
    		
-   		// iterating through character and adding each 
-   		// letter to children until "\n"
-   		for(; character != '\n'; character = fgetc(fp))
-   		{
-   			// if apostrophe then store in 
-   			if (character == '\'')
-   			{
-   				character = z_int + 1;
-   			}
+        for(; character != '\n'; character = fgetc(fp))
+        {
+   		    // if apostrophe then store in 
+            if (character == '\'')
+            {
+                character = z_int + 1;
+            }
    			
-   			// if the character is not in trie...create one
-   			if (currentnode -> children[character - a_int] == NULL)
-   			{
-   				// malloc a new node
-   				currentnode -> children[character - a_int] = (trie*)malloc(sizeof(trie));
-   				currentnode = currentnode -> children[character - a_int];
-   			}
+            // if the character is not in trie then create one
+            if (currentnode->children[character - a_int] == NULL)
+            {
+                // malloc a new node
+                currentnode->children[character - a_int] = (trie*) malloc(sizeof(trie));
+                currentnode = currentnode->children[character - a_int];
+            }
+   		
+   		    // go to address in children
+   		    else
+            { 
+                currentnode = currentnode->children[character - a_int];
+            }
    			
-   			// go to address in children
-   			else
-   			{
-   				currentnode = currentnode -> children[character - a_int];
-   			}
-   			
-   		}
-   		currentnode -> is_word = true;
-   		words_counter++;
-   }
+        }
+        currentnode->is_word = true;
+        words_counter++;
+    }
    
-   // close the dictionary file
-   fclose(fp);
-   return true;
+    // close the dictionary file
+    fclose(fp);
+    return true;
    
 }
 
